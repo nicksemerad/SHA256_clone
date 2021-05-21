@@ -2,24 +2,62 @@ package hashFunction;
 
 import java.util.ArrayList;
 
+/**
+ * This class is the schedule for a single block. This class takes
+ * a block as a parameter in its construction, and will populate,
+ * extend, and compress the schedule into the final hash. 
+ * 
+ * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233
+ * 
+ * The above hash is a message that I will use as a signature, as 
+ * nobody will be able to create this hash without knowing my message.
+ * Mostly for fun :)
+ * 
+ * @author Nick Semerad - 2021
+ *
+ */
+
 public class MessageSchedule {
 
 	private ArrayList<Word> words;
 	
+	/**
+	 * This is the constructor for a message schedule, for a single
+	 * block. By calling this constructor, the block parameter
+	 * will be converted to an array of Strings, called words. Then,
+	 * it will fill the schedule with these words, and extend this schedule
+	 * from 16 words to 64 words. 
+	 * 
+	 * @param block - the 512 bit block to be converted to a schedule
+	 */
 	public MessageSchedule(String block) {
 		words = new ArrayList<Word>();
 		populate(block);
 		extend();
 	}
 
+	/**
+	 * This method will populate the schedule with 16 32bit words,
+	 * by cutting the block into smaller pieces. 
+	 * 
+	 * @param block - the block to be divided, and put in schedule
+	 */
 	public void populate(String block) {
 		for(int i = 0; i < 16; i++) {
 			words.add( new Word(block.substring((32 * i), ((1+i) * 32))));
 		}
 	}
 	
-	/*
-	 * sig1(t-2) + t-7 + sig0(t-15) + t-16
+	/**
+	 * This method will use the already populated words in the schedule
+	 * to extend the schedule to 64 words. It does this by adding a series
+	 * of words together, some of which are operated on by a function. It
+	 * then adds the resulting word to the end of the schedule, until it
+	 * is full.
+	 * 
+	 * Formula, where t=last word in schedule:
+	 * sig1(t-2) + (t-7) + sig0(t-15) + (t-16)
+	 * These operations can be found in the Word class
 	 */
 	public void extend() {
 		while(words.size() < 64) {
@@ -30,6 +68,19 @@ public class MessageSchedule {
 		}
 	}
 	
+	/**
+	 * This method will take the 64 words in the message schedule, 
+	 * and compress them into a hash. The initial hash is the square
+	 * roots of the first 64 primes' cube root. It does this by 
+	 * combining various words in the initial hash, and the schedule,
+	 * with some words being operated on. These operations can be 
+	 * found in the Word class. After the first block has been compressed,
+	 * the next block will be compressed with the previous blocks resulting
+	 * hash, as the new initial hash. 
+	 * 
+	 * @param initHash - initial values for the schedule to be compressed into
+	 * @return k - the array list of words, containing the compressed schedule
+	 */
 	public ArrayList<Word> compress(ArrayList<Word> initHash) {
 		ArrayList<Word> k = new ArrayList<Word>(); 
 		ArrayList<Word> consts = Word.constants(1, 64);

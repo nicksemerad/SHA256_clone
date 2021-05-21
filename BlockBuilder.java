@@ -2,6 +2,22 @@ package hashFunction;
 
 import java.util.ArrayList;
 
+/**
+ * This class will convert a string (message) into binary, then into as 
+ * many blocks as needed. The blocks in this class are a single 512 bit
+ * string, which will be cut into 16 32bit words later on in the hashing
+ * process. 
+ * 
+ * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233
+ * 
+ * The above hash is a message that I will use as a signature, as 
+ * nobody will be able to create this hash without knowing my message
+ * Mostly for fun :)
+ * 
+ * @author Nick Semerad - 2021
+ *
+ */
+
 public class BlockBuilder {
 	
 	private ArrayList<String> mBlocks;

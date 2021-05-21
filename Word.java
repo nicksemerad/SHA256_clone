@@ -2,6 +2,22 @@ package hashFunction;
 
 import java.util.ArrayList;
 
+/**
+ * This class is the storage and operations of a single word. A word is 
+ * 32 bits of information. A block is made of 16 of these words. Some of 
+ * the methods in this class are used to compress and create new words,
+ * in the extension and compression of a message. 
+ * 
+ * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233
+ * 
+ * The above hash is a message that I will use as a signature, as 
+ * nobody will be able to create this hash without knowing my message
+ * Mostly for fun :)
+ * 
+ * @author Nick Semerad - 2021
+ *
+ */
+
 public class Word {
 	
 	private String bits; // stored as a string to keep leading zero(s)
