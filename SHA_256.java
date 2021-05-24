@@ -69,6 +69,6 @@ public class SHA_256 {
 	 * This main method is currently being used for testing. 
 	 */
 	public static void main(String[] args) {
-		SHA_256 h = new SHA_256("123");
+		SHA_256 h = new SHA_256(args[0]);
 	}
 }
