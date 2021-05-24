@@ -13,3 +13,5 @@ Directions to running this algorithm:
 6) Your resulting hash will be printed to the terminal! 
 
 Thanks for checking my project out! If you have any comments, please interact with me here on github :)
+
+Just for fun: The hash of the above text is: 0740aa446f4ea9dc8168fd1cbdedd99a23a912a65bde00720b2dd4de584cf272
