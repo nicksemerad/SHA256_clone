@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * a block as a parameter in its construction, and will populate,
  * extend, and compress the schedule into the final hash. 
  * 
- * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233
+ * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233.
  * 
  * The above hash is a message that I will use as a signature, as 
  * nobody will be able to create this hash without knowing my message.

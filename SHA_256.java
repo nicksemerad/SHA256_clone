@@ -1,12 +1,15 @@
 package hashFunction;
 
 import java.util.ArrayList;
+import hashFunction.BlockBuilder;
+import hashFunction.MessageSchedule;
+import hashFunction.Word;
 
 /**
  * This class is the driver class for the various other classes 
  * and methods, that are required to make a hash with SHA256.
  * 
- * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233
+ * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233.
  * 
  * The above hash is a message that I will use as a signature, as 
  * nobody will be able to create this hash without knowing my message
@@ -15,7 +18,7 @@ import java.util.ArrayList;
  * @author Nick Semerad - 2021
  *
  */
-public class HashFunction {
+public class SHA_256 {
 
 	private ArrayList<Word> currentHash;
 	
@@ -30,37 +33,42 @@ public class HashFunction {
 	 * 
 	 * @param message - the message to be hashed
 	 */
-	public HashFunction(String message) {
+	public SHA_256(String message) {
 		currentHash = Word.constants(0, 8);
 		for(String block : new BlockBuilder(message).getBlocks()) {
 			MessageSchedule g = new MessageSchedule(block);
 			currentHash = g.compress(currentHash);			
 		}
+		System.out.println(result());
 	}
 	
 	/**
 	 * This function will append the current hash words together,
 	 * to make the continuous and final hash. This message is called
-	 * independent of the constructor, and is only used for the output
+	 * with the completion constructor, and is only used for the output
 	 * of the hash to console (currently)
 	 * 
 	 * @return result - the resulting hex string of the final message hash
 	 */
 	public String result(){
-		StringBuilder result = new StringBuilder();
+		StringBuilder hex = new StringBuilder();
 		for(Word w : currentHash) {
+			StringBuilder currHex = new StringBuilder();
 			Long decimal = Long.parseLong(w.getBits(), 2);
 			String hexStr = Long.toString(decimal, 16);
-			result.append(hexStr);
+			for(int i = 0; i < 8 - hexStr.length(); i++) 
+				currHex.append(0);
+			currHex.append(hexStr);
+			hex.append(currHex);
 		}
-		return result.toString();
+		
+		return hex.toString();
 	}
 	
 	/**
 	 * This main method is currently being used for testing. 
 	 */
 	public static void main(String[] args) {
-		HashFunction h = new HashFunction("nick semerad made this sha256 clone in may of 2021");
-		System.out.println(h.result());
+		SHA_256 h = new SHA_256("123");
 	}
 }

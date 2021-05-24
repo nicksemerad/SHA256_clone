@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * string, which will be cut into 16 32bit words later on in the hashing
  * process. 
  * 
- * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233
+ * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233.
  * 
  * The above hash is a message that I will use as a signature, as 
  * nobody will be able to create this hash without knowing my message
@@ -67,8 +67,12 @@ public class BlockBuilder {
 	 */
 	public String toBinary(String message) {
 		StringBuilder binary = new StringBuilder();
-		for(int i = 0; i < message.length(); i++) 
-			binary.append(0 + Integer.toBinaryString((int)message.charAt(i)));
+		for(int i = 0; i < message.length(); i++) {
+			String binChar = 0 + Integer.toBinaryString((int)message.charAt(i));
+			while(binChar.length() < 8)
+				binChar = 0 + binChar;
+			binary.append(binChar);
+		}
 		return pad(binary);
 	}
 	

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * the methods in this class are used to compress and create new words,
  * in the extension and compression of a message. 
  * 
- * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233
+ * f1e036d3876c0cf2368d18c7102a74d85acd994e19d1c4c8eeb9f95cad496233.
  * 
  * The above hash is a message that I will use as a signature, as 
  * nobody will be able to create this hash without knowing my message
@@ -236,7 +236,7 @@ public class Word {
 						137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,
 						227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311};
 		ArrayList<Word> consts = new ArrayList<Word>();
-		
+		// for square roots
 		if(type == 0) {
 			for(int i = 0; i < length; i++) {
 				Double result = (Math.sqrt(primes[i]) % 1) * Math.pow(2, 32);
@@ -245,6 +245,7 @@ public class Word {
 				consts.add(new Word(pad32(bits)));
 			}
 		}
+		// for cube roots
 		if(type == 1) {
 			for(int i = 0; i < length; i++) {
 				Double result = (Math.cbrt(primes[i]) % 1) * Math.pow(2, 32);
